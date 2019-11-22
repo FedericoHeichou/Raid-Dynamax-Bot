@@ -195,7 +195,7 @@ def join(call):
         texts = json.load(filee)
 
     if len(raid.players) > 3:
-        bot.answer_callback_query(call.id, texts['full_raid'])
+        bot.answer_callback_query(call.id, texts['full_raid'], True)
     else:
         if call.from_user.first_name != raid.owner:
             if call.from_user.id not in raid.players_id:
@@ -248,7 +248,7 @@ def done(call):
         markup.row(no)
         bot.edit_message_reply_markup(cid, mid, reply_markup=markup)
     else:
-        bot.answer_callback_query(call.id, texts['not_creator'])
+        bot.answer_callback_query(call.id, texts['not_creator'], True)
 
 
 
@@ -289,7 +289,7 @@ def confirm(call):
 
         bot.edit_message_text(text, cid, mid, reply_markup=markup, parse_mode='HTML')
     else:
-        bot.answer_callback_query(call.id, texts['not_creator'])
+        bot.answer_callback_query(call.id, texts['not_creator'], True)
 
 
 
@@ -326,7 +326,7 @@ def back(call):
 
         bot.edit_message_text(text, cid, mid, reply_markup=markup, parse_mode='HTML')
     else:
-        bot.answer_callback_query(call.id, texts['not_creator'])
+        bot.answer_callback_query(call.id, texts['not_creator'], True)
 
 
 
@@ -339,9 +339,9 @@ def password(call):
         texts = json.load(filee)
 
     if call.from_user.id in raid.players_id or call.from_user.id == int(call.data.replace('password', '')):
-        bot.answer_callback_query(call.id, raid.pin)
+        bot.answer_callback_query(call.id, raid.pin, True)
     else:
-        bot.answer_callback_query(call.id, texts["not_player"])
+        bot.answer_callback_query(call.id, texts["not_player"], True)
 
 
 
