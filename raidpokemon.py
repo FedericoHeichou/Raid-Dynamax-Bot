@@ -132,7 +132,7 @@ def show_fc(message):
                 text = text + name + ': ' + fc + '\n'
                 break
 
-        bot.send_message(cid, text)
+    bot.send_message(cid, text)
 
 
 
