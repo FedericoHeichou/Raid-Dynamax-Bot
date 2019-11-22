@@ -123,11 +123,12 @@ def show_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    if str(cid) not in data:
-        bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+    if message.chat.type != 'group':
+        text = texts['not_available']
+        bot.send_message(cid, text)
     else:
-        if message.chat.type != 'group':
-            text = texts['not_available']
+        if str(cid) not in data:
+            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
         else:
             for idd in data[str(cid)]:
                 if idd == str(message.from_user.id):
@@ -136,10 +137,10 @@ def show_fc(message):
                     text = name + ': ' + fc + '\n'
                     break
 
-        try:
-            bot.send_message(cid, text)
-        except Exception:
-            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+            try:
+                bot.send_message(cid, text)
+            except Exception:
+                bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
 
 
