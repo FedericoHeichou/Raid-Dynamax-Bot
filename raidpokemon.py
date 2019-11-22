@@ -4,7 +4,10 @@ import json
 import random
 
 
-bot = telebot.TeleBot('979765263:AAELCFhUsKZWyjnvwLuAowk8ZNSAHgRxa7k')
+with open('token.txt', 'r') as filee:
+    token = filee.read().replace('\n', '')
+
+bot = telebot.TeleBot(token)
 user_dict = {}
 
 
