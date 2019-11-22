@@ -55,12 +55,12 @@ def yourfc(message):
     else:
         fc = message.text.replace('/add', '')
         fc = fc.replace(' ', '')
-        check = fc
-
         if 'SW-' in fc:
             fc = fc.replace('SW-', '')
         else:
             pass
+
+        check = fc
         
         for block in range(3):
             if block != 0:
@@ -97,8 +97,7 @@ def yourfc(message):
             if message.chat.type != 'private' and check == '':
                 if str(cid) not in data:
                     text = texts['fc_add']
-                data[str(cid)] = {}
-                data[str(cid)][str(message.from_user.id)] = {fc:message.from_user.first_name}
+                data.update({str(cid): {str(message.from_user.id):{fc:message.from_user.first_name}}})
                 for idd in data[str(cid)]:
                     if idd == str(message.from_user.id):
                         try:
