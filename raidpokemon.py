@@ -96,8 +96,7 @@ def yourfc(message):
             if message.chat.type == 'group':
                 data[cid] = {}
                 data[cid][str(message.from_user.id)] = {fc:message.from_user.first_name}
-                text = texts['not_available']
-                for idd in data.keys():
+                for idd in data[cid]:
                     if idd == str(message.from_user.id):
                         text = texts['fc_update']
             else:
@@ -124,15 +123,38 @@ def show_fc(message):
         text = texts['not_available']
     else:
 
-        text = ''
+        for idd in data[str(cid)]:
+            if idd == str(message.from_user.id):
+                fc = [i for i in data[str(cid)][idd]][0]
+                name = data[str(cid)][idd][fc]
+                text = name + ': ' + fc + '\n'
+                break
 
-        for dictt in data.values():
-            for fc in dictt:
-                name = dictt[fc]
-                text = text + name + ': ' + fc + '\n'
+    try:
+        bot.send_message(cid, text)
+    except Exception:
+        bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
+
+
+
+@bot.message_handler(commands=['showme'])
+def show_my_fc(message):
+    cid = message.chat.id
+
+    with open('friendcodes.json', 'r') as filee:
+        data = json.load(filee)
+
+    for group in data.values():
+        for person in group:
+            if person == str(cid):
+                fc = [i for i in person][0]
+                name = person[fc]
+                text = name + ': ' + fc
                 break
 
     bot.send_message(cid, text)
+
+
 
 
 
