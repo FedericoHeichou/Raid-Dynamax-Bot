@@ -87,25 +87,26 @@ def yourfc(message):
             except Exception:
                 pass
 
-        try:
-            if msg:
-                pass
-        except Exception:
-            text = texts['fc_add']
-
-            if message.chat.type == 'group':
-                data[cid] = {}
-                data[cid][str(message.from_user.id)] = {fc:message.from_user.first_name}
-                for idd in data[cid]:
-                    if idd == str(message.from_user.id):
+        if message.chat.type == 'group':
+            if str(cid) not in data:
+                text = texts['fc_add']
+            data[str(cid)] = {}
+            data[str(cid)][str(message.from_user.id)] = {fc:message.from_user.first_name}
+            for idd in data[str(cid)]:
+                if idd == str(message.from_user.id):
+                    try:
+                        if text:
+                            pass
+                    except Exception:
                         text = texts['fc_update']
-            else:
-                text = texts['not_available']
+                    break
+        else:
+            text = texts['not_available']
 
-            bot.send_message(cid, text)
+        bot.send_message(cid, text)
 
-            with open('friendcodes.json', 'w') as filee:
-                json.dump(data, filee, indent=4)
+        with open('friendcodes.json', 'w') as filee:
+            json.dump(data, filee, indent=4)
 
 
 
@@ -121,8 +122,9 @@ def show_fc(message):
 
     if message.chat.type != 'group':
         text = texts['not_available']
+    elif str(cid) not in data:
+        bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
     else:
-
         for idd in data[str(cid)]:
             if idd == str(message.from_user.id):
                 fc = [i for i in data[str(cid)][idd]][0]
@@ -130,10 +132,10 @@ def show_fc(message):
                 text = name + ': ' + fc + '\n'
                 break
 
-    try:
-        bot.send_message(cid, text)
-    except Exception:
-        bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
+        try:
+            bot.send_message(cid, text)
+        except Exception:
+            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
 
 
@@ -144,6 +146,9 @@ def show_my_fc(message):
     with open('friendcodes.json', 'r') as filee:
         data = json.load(filee)
 
+    with open('texts.json', 'r') as filee:
+        texts = json.load(filee)
+
     for group in data.values():
         for person in group:
             if person == str(cid):
@@ -152,7 +157,10 @@ def show_my_fc(message):
                 text = name + ': ' + fc
                 break
 
-    bot.send_message(cid, text)
+    try:
+        bot.send_message(cid, text)
+    except UnboundLocalError:
+        bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
 
 
 
