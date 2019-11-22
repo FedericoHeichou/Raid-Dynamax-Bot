@@ -374,4 +374,16 @@ def password(call):
 
 
 
+@bot.message_handler(commands=['credits'])
+def credits(message):
+    cid = message.chat.id
+
+    with open('texts.json', 'r') as filee:
+        texts = json.load(filee)
+
+    text = texts['credits']
+    bot.send_message(cid, text)
+
+
+
 bot.polling()
