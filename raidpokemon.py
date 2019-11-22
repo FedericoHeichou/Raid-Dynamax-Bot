@@ -7,7 +7,7 @@ import random
 with open('token.txt', 'r') as filee:
     token = filee.read().replace('\n', '')
 
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot('979765263:AAELCFhUsKZWyjnvwLuAowk8ZNSAHgRxa7k')
 user_dict = {}
 
 
@@ -32,7 +32,7 @@ def home(message):
         texts = json.load(filee)
 
     text = ''
-    if message.chat.type != 'group':
+    if message.chat.type == 'private':
         text += texts["welcome1"]
     text += texts["welcome2"]
 
@@ -90,26 +90,30 @@ def yourfc(message):
             except Exception:
                 pass
 
-        if message.chat.type == 'group':
-            if str(cid) not in data:
-                text = texts['fc_add']
-            data[str(cid)] = {}
-            data[str(cid)][str(message.from_user.id)] = {fc:message.from_user.first_name}
-            for idd in data[str(cid)]:
-                if idd == str(message.from_user.id):
-                    try:
-                        if text:
-                            pass
-                    except Exception:
-                        text = texts['fc_update']
-                    break
-        else:
-            text = texts['not_available']
+        try:
+            if msg:
+                pass
+        except Exception:
+            if message.chat.type != 'private' and check == '':
+                if str(cid) not in data:
+                    text = texts['fc_add']
+                data[str(cid)] = {}
+                data[str(cid)][str(message.from_user.id)] = {fc:message.from_user.first_name}
+                for idd in data[str(cid)]:
+                    if idd == str(message.from_user.id):
+                        try:
+                            if text:
+                                pass
+                        except Exception:
+                            text = texts['fc_update']
+                        break
+            else:
+                text = texts['not_available']
 
-        bot.send_message(cid, text)
+            bot.send_message(cid, text)
 
-        with open('friendcodes.json', 'w') as filee:
-            json.dump(data, filee, indent=4)
+            with open('friendcodes.json', 'w') as filee:
+                json.dump(data, filee, indent=4)
 
 
 
@@ -123,24 +127,24 @@ def show_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    if message.chat.type != 'group':
+    if message.chat.type == 'private':
         text = texts['not_available']
         bot.send_message(cid, text)
     else:
         if str(cid) not in data:
             bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
         else:
+            text = ''
             for idd in data[str(cid)]:
-                if idd == str(message.from_user.id):
-                    fc = [i for i in data[str(cid)][idd]][0]
-                    name = data[str(cid)][idd][fc]
-                    text = name + ': ' + fc + '\n'
+                for i in data[str(cid)][idd].keys():
+                    fc = i
                     break
+                for i in data[str(cid)][idd].values():
+                    name = i
+                    break
+                text += name + ': ' + fc + '\n'
 
-            try:
-                bot.send_message(cid, text)
-            except Exception:
-                bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+            bot.send_message(cid, text)
 
 
 
@@ -154,20 +158,24 @@ def show_my_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    if message.chat.type != 'group':
-            text = texts['not_available']
-    else:
-        for idd in data[str(cid)]:
-            if idd == str(message.from_user.id):
-                fc = [i for i in data[str(cid)][idd]][0]
-                name = data[str(cid)][idd][fc]
-                text = name + ': ' + fc
-                break
-
-    try:
+    if message.chat.type == 'private':
+        text = texts['not_available']
         bot.send_message(cid, text)
-    except UnboundLocalError:
-        bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
+    else:
+        if str(cid) not in data:
+            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+        else:
+            for idd in data[str(cid)]:
+                if idd == str(message.from_user.id):
+                    fc = [i for i in data[str(cid)][idd]][0]
+                    name = data[str(cid)][idd][fc]
+                    text = name + ': ' + fc
+                    break
+
+            try:
+                bot.send_message(cid, text)
+            except UnboundLocalError:
+                bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
 
 
 
