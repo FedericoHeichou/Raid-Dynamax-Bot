@@ -1,1 +1,1 @@
-# pokeraid-bot
+# RAID Dynamax Bot
