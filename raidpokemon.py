@@ -135,10 +135,10 @@ def show_fc(message):
                 text = name + ': ' + fc + '\n'
                 break
 
-        try:
-            bot.send_message(cid, text)
-        except Exception:
-            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+    try:
+        bot.send_message(cid, text)
+    except Exception:
+        bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
 
 
