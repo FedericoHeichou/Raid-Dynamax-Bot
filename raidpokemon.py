@@ -149,13 +149,12 @@ def show_my_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    for group in data.values():
-        for person in group:
-            if person == str(cid):
-                fc = [i for i in person][0]
-                name = person[fc]
-                text = name + ': ' + fc
-                break
+    for idd in data[str(cid)]:
+        if idd == str(message.from_user.id):
+            fc = [i for i in data[str(cid)][idd]][0]
+            name = data[str(cid)][idd][fc]
+            text = name + ': ' + fc
+            break
 
     try:
         bot.send_message(cid, text)
