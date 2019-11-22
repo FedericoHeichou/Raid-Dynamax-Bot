@@ -198,7 +198,10 @@ def new_raid(message):
         bot.send_message(cid, texts['new_raid_error'], parse_mode='HTML')
     else:
         raid.idd = message.from_user.id
-        raid.pokemon = message.text.replace('/new ', '')
+        if '/new@RaidDynamaxBot ' in message.text:
+            raid.pokemon = message.text.replace('/new@RaidDynamaxBot ', '')
+        else:
+            raid.pokemon = message.text.replace('/new ', '')
         raid.owner = message.from_user.first_name
         try:
             raid.fc = list(data[str(message.from_user.id)].keys())[0]
