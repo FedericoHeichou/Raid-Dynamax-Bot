@@ -1,6 +1,6 @@
 {
     "welcome1": "Benvenuto in RAID Dynamax Bot.\nQuesto bot funziona solo nei gruppi, se non lo hai già fatto, aggiungimi al tuo gruppo e promuovimi ad amministratore\n\n",
-    "welcome2": "<b>Command list</b>\n/add <i>IlTuoFC</i> - Aggiungi il tuo codice amico\n/show - Mostra tutti i codici amico\n/showme - Mostra il proprio Codice Amico\n/new <i>NomePokémon</i> - Crea un nuovo Raid",
+    "welcome2": "<b>Command list</b>\n/add <i>IlTuoFC</i> - Aggiungi il tuo codice amico\n/show - Mostra tutti i codici amico\n/showme - Mostra il proprio Codice Amico\n/new <i>NomePokémon</i> - Crea un nuovo Raid\n/credits - Riconoscimenti",
     "incomplete_fc_error": "Per aggiungere il tuo Codice Amico segui questa sintassi:\n<i>/add 1234-5678-9012</i>",
     "fc_error": "Oops\nPare ci sia qualche problema con il tuo FC\n\nAssicurati segua uno di questi schemi schema:\n1234-5678-9012\nSW-1234-5678-9012",
     "fc_add": "Codice Amico aggiunto",
@@ -14,5 +14,5 @@
     "not_available": "Puoi usare questo comando solo nei gruppi",
     "no_fc": "Non hai registrato alcun Codice Amico. Per farlo, segui la seguente sintassi:\n/add <i>IlTuoFC</i>",
     "no_fcs": "Non sono registrati Codici Amico in questo gruppo",
-    "credits": "Bot sviluppato da @AlessioCelentano per @PokemonRaidDynamax.\n\nIl progetto è totalmente open-source: https://github.com/alessiocelentano/Raid-Dynamax-Bot\n\nSegui i changelog su @Fliss_Projects"
+    "credits": "Bot sviluppato da @AlessioCelentano per @PokemonRaidDynamax\n\nIl progetto è totalmente open-source: https://github.com/alessiocelentano/Raid-Dynamax-Bot\n\nSegui i changelog su @Fliss_Projects"
 }
