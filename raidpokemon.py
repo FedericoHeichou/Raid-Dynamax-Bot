@@ -123,22 +123,23 @@ def show_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    if message.chat.type != 'group':
-        text = texts['not_available']
-    elif str(cid) not in data:
+    if str(cid) not in data:
         bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
     else:
-        for idd in data[str(cid)]:
-            if idd == str(message.from_user.id):
-                fc = [i for i in data[str(cid)][idd]][0]
-                name = data[str(cid)][idd][fc]
-                text = name + ': ' + fc + '\n'
-                break
+        if message.chat.type != 'group':
+            text = texts['not_available']
+        else:
+            for idd in data[str(cid)]:
+                if idd == str(message.from_user.id):
+                    fc = [i for i in data[str(cid)][idd]][0]
+                    name = data[str(cid)][idd][fc]
+                    text = name + ': ' + fc + '\n'
+                    break
 
-    try:
-        bot.send_message(cid, text)
-    except Exception:
-        bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
+        try:
+            bot.send_message(cid, text)
+        except Exception:
+            bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
 
 
