@@ -153,12 +153,15 @@ def show_my_fc(message):
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
-    for idd in data[str(cid)]:
-        if idd == str(message.from_user.id):
-            fc = [i for i in data[str(cid)][idd]][0]
-            name = data[str(cid)][idd][fc]
-            text = name + ': ' + fc
-            break
+    if message.chat.type != 'group':
+            text = texts['not_available']
+    else:
+        for idd in data[str(cid)]:
+            if idd == str(message.from_user.id):
+                fc = [i for i in data[str(cid)][idd]][0]
+                name = data[str(cid)][idd][fc]
+                text = name + ': ' + fc
+                break
 
     try:
         bot.send_message(cid, text)
