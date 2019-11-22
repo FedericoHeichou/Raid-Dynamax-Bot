@@ -1,0 +1,15 @@
+{
+    "welcome1": "Benvenuto in RAID Dynamax Bot.\nQuesto bot funziona solo nei gruppi, se non lo hai già fatto, aggiungimi al tuo gruppo e promuovimi ad amministratore\n\n",
+    "welcome2": "<b>Command list</b>\n/add <i>IlTuoFC</i> - Aggiungi il tuo codice amico\n/show - Mostra tutti i codici amico",
+    "incomplete_fc_error": "Per aggiungere il tuo Codice Amico segui questa sintassi:\n<i>/add 1234-5678-9012</i>",
+    "fc_error": "Oops\nPare ci sia qualche problema con il tuo FC\n\nAssicurati segua uno di questi schemi schema:\n1234-5678-9012\nSW-1234-5678-9012",
+    "fc_add": "Codice Amico aggiunto",
+    "fc_update": "Codice Amico e nome aggiornati",
+    "new_raid": "É apparso un {}🐲\n\n👑{} (<i>{}</i>)\n⚔️{}\n⚔️{}\n⚔️{}",
+    "new_raid_error": "Per poter utilizzare questo comando, usa la seguente sintassi:\n/new <i>NomePokémon</i>",
+    "full_raid": "Il raid è pieno",
+    "not_creator": "Non sei il creatore di questo raid",
+    "raid_closed": "\n\nIl raid è chiuso",
+    "not_player": "Non sei un partecipante di questo raid",
+    "not_available": "Puoi usare questo comando solo nei gruppi"
+}
