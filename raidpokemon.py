@@ -198,7 +198,7 @@ def new_raid(message):
     with open('friendcodes.json', 'r') as filee:
         data = json.load(filee)
 
-    if message.text == '/new':
+    if message.text == '/new' or message.text == '/new@RaidDynamaxBot':
         bot.send_message(cid, texts['new_raid_error'], parse_mode='HTML')
     else:
         raid.idd = message.from_user.id
