@@ -7,7 +7,7 @@ import random
 with open('token.txt', 'r') as filee:
     token = filee.read().replace('\n', '')
 
-bot = telebot.TeleBot('979765263:AAELCFhUsKZWyjnvwLuAowk8ZNSAHgRxa7k')
+bot = telebot.TeleBot(token)
 user_dict = {}
 
 
@@ -27,6 +27,8 @@ class Raid():
 @bot.message_handler(commands=['start'])
 def home(message):
     cid = message.chat.id
+
+    print(cid)
 
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
@@ -143,7 +145,10 @@ def show_fc(message):
                     break
                 text += name + ': ' + fc + '\n'
 
-            bot.send_message(cid, text)
+            try:
+                bot.send_message(cid, text)
+            except Exception:
+                bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
 
 
@@ -203,7 +208,7 @@ def new_raid(message):
             raid.pokemon = message.text.replace('/new ', '')
         raid.owner = message.from_user.first_name
         try:
-            raid.fc = list(data[str(message.from_user.id)].keys())[0]
+            raid.fc = list(data[str(cid)][str(message.from_user.id)].keys())[0]
         except Exception:
             raid.fc = '-'
 
