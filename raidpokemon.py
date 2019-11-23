@@ -28,8 +28,6 @@ class Raid():
 def home(message):
     cid = message.chat.id
 
-    print(cid)
-
     with open('texts.json', 'r') as filee:
         texts = json.load(filee)
 
@@ -97,9 +95,10 @@ def yourfc(message):
                 pass
         except Exception:
             if message.chat.type != 'private' and check == '':
-                if str(cid) not in data:
+                if str(message.from_user.id) not in data[str(cid)]:
                     text = texts['fc_add']
-                data.update({str(cid): {str(message.from_user.id):{fc:message.from_user.first_name}}})
+
+                data[str(cid)].update({message.from_user.id:{fc:message.from_user.first_name}})
                 for idd in data[str(cid)]:
                     if idd == str(message.from_user.id):
                         try:
@@ -385,15 +384,18 @@ def back(call):
 
 @bot.callback_query_handler(func=lambda call: 'password' in call.data)
 def password(call):
-    raid = user_dict[int(call.data.replace('password', ''))]
+    try:
+        raid = user_dict[int(call.data.replace('password', ''))]
 
-    with open('texts.json', 'r') as filee:
-        texts = json.load(filee)
+        with open('texts.json', 'r') as filee:
+            texts = json.load(filee)
 
-    if call.from_user.id in raid.players_id or call.from_user.id == int(call.data.replace('password', '')):
-        bot.answer_callback_query(call.id, raid.pin, True)
-    else:
-        bot.answer_callback_query(call.id, texts["not_player"], True)
+        if call.from_user.id in raid.players_id or call.from_user.id == int(call.data.replace('password', '')):
+            bot.answer_callback_query(call.id, raid.pin, True)
+        else:
+            bot.answer_callback_query(call.id, texts["not_player"], True)
+    except Exception:
+        pass
 
 
 
@@ -408,5 +410,4 @@ def credits(message):
     bot.send_message(cid, text)
 
 
-
-bot.polling()
+bot.polling(none_stop=True)
