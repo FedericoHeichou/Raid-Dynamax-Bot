@@ -148,7 +148,7 @@ def show_fc(message):
             if str(cid) not in data:
                 bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
             else:
-                text = ''
+                text = texts['list']
                 for idd in data[str(cid)]:
                     for i in data[str(cid)][idd].keys():
                         fc = i
