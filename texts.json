@@ -15,4 +15,5 @@
     "no_fc": "<b>⚠️ERRORE⚠️</b>\nNon hai registrato alcun Codice Amico in questo gruppo. Per farlo, segui la seguente sintassi:\n/add <i>IlTuoFC</i>",
     "no_fcs": "<b>⚠️ERRORE⚠️</b>\nNon sono registrati Codici Amico in questo gruppo",
     "credits": "👨🏻‍💻 Bot sviluppato da @AlessioCelentano per @PokemonRaidDynamax e utilizzabile liberamente da chiunque\n\n🌐 Il progetto è totalmente open-source: https://github.com/alessiocelentano/Raid-Dynamax-Bot\n\n🆙 Segui i changelog su @Fliss_Projects",
+    "list": "📄 <b>LISTA DEL GRUPPO</b>\n"
 }
