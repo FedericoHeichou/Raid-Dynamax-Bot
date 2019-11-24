@@ -14,5 +14,6 @@
     "not_available": "Puoi usare questo comando solo nei gruppi",
     "no_fc": "Non hai registrato alcun Codice Amico. Per farlo, segui la seguente sintassi:\n/add <i>IlTuoFC</i>",
     "no_fcs": "Non sono registrati Codici Amico in questo gruppo",
-    "credits": "Bot sviluppato da @AlessioCelentano per @PokemonRaidDynamax\n\nIl progetto è totalmente open-source: https://github.com/alessiocelentano/Raid-Dynamax-Bot\n\nSegui i changelog su @Fliss_Projects"
+    "credits": "Bot sviluppato da @AlessioCelentano per @PokemonRaidDynamax\n\nIl progetto è totalmente open-source: https://github.com/alessiocelentano/Raid-Dynamax-Bot\n\nSegui i changelog su @Fliss_Projects",
+    "error": "Oops, pare ci sia stato un errore, riprova"
 }
