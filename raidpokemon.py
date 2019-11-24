@@ -37,7 +37,7 @@ def home(message):
         text += texts["welcome2"]
     except Exception as e:
         text = texts['error']
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
     bot.send_message(cid, text, parse_mode='HTML')
@@ -123,7 +123,7 @@ def yourfc(message):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -164,7 +164,7 @@ def show_fc(message):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -201,7 +201,7 @@ def show_my_fc(message):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -262,7 +262,7 @@ def new_raid(message):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -314,7 +314,7 @@ def join(call):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -342,7 +342,7 @@ def done(call):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -390,7 +390,7 @@ def confirm(call):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -433,7 +433,7 @@ def back(call):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -450,7 +450,7 @@ def password(call):
         else:
             bot.answer_callback_query(call.id, texts["not_player"], True)
     except Exception as e:
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
@@ -468,7 +468,7 @@ def credits(message):
     except Exception as e:
         text = texts['error']
         bot.send_message(cid, text)
-        bot.send_message(312012637, '`' + e + '`', parse_mode='Markdown')
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
 
 
 
