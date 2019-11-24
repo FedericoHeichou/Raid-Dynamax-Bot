@@ -8,7 +8,7 @@ import random
 with open('token.txt', 'r') as filee:
     token = filee.read().replace('\n', '')
 
-bot = telebot.TeleBot('979765263:AAELCFhUsKZWyjnvwLuAowk8ZNSAHgRxa7k')
+bot = telebot.TeleBot(token)
 user_dict = {}
 
 
@@ -251,12 +251,69 @@ def new_raid(message):
                 )
 
                 markup = types.InlineKeyboardMarkup()
+                star1 = types.InlineKeyboardButton('⭐️', callback_data='1stars'+str(raid.idd))
+                star2 = types.InlineKeyboardButton('⭐️⭐️', callback_data='2stars'+str(raid.idd))
+                star3 = types.InlineKeyboardButton('⭐️⭐️⭐️', callback_data='3stars'+str(raid.idd))
+                star4 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️', callback_data='4stars'+str(raid.idd))
+                star5 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️⭐️', callback_data='5stars'+str(raid.idd))
                 join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
                 done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
+                markup.row(star1, star2)
+                markup.row(star3, star4)
+                markup.row(star5)
                 markup.row(join)
                 markup.row(done)
 
                 bot.send_message(cid, text, parse_mode='HTML', reply_markup=markup)
+
+    except Exception as e:
+        bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
+
+
+
+@bot.callback_query_handler(func=lambda call: 'stars' in call.data)
+def stars(call):
+    try:
+        cid = call.message.chat.id
+        mid = call.message.message_id
+        stars = call.data[0]
+        call.data = call.data.replace(stars, '', 1)
+        raid = user_dict[int(call.data.replace('stars', ''))]
+
+        with open('texts.json', 'r') as filee:
+            texts = json.load(filee)
+
+        if call.from_user.id != raid.idd:
+            text = texts['not_creator']
+            bot.answer_callback_query(call.id, text, True)
+
+        else:
+            emoji = ''
+            for i in range(int(stars)):
+                emoji += '⭐️'
+
+            players = ['-', '-', '-']
+            n = 0
+            for i in range(len(raid.players)):
+                players[n] = raid.players[n]
+                n = n + 1
+
+            text = texts['new_raid'].format(
+                raid.pokemon + ' ' + emoji,
+                raid.owner,
+                raid.fc,
+                players[0],
+                players[1],
+                players[2]
+            )
+
+            markup = types.InlineKeyboardMarkup()
+            join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
+            done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
+            markup.row(join)
+            markup.row(done)
+
+            bot.edit_message_text(text, cid, mid, reply_markup=markup, parse_mode='HTML')
 
     except Exception as e:
         bot.send_message(312012637, '`' + str(e) + '`', parse_mode='Markdown')
