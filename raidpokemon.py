@@ -17,6 +17,7 @@ class Raid():
     def __init__(self):
         self.idd = None
         self.pokemon = None
+        self.stars = None
         self.owner = None
         self.fc = None
         self.players = []
@@ -159,7 +160,7 @@ def show_fc(message):
                     text += name + ': ' + fc + '\n'
 
                 try:
-                    bot.send_message(cid, text)
+                    bot.send_message(cid, text, parse_mode='HTML')
                 except Exception:
                     bot.send_message(cid, texts['no_fcs'], parse_mode='HTML')
 
@@ -194,7 +195,7 @@ def show_my_fc(message):
                         break
 
                 try:
-                    bot.send_message(cid, text)
+                    bot.send_message(cid, text, parse_mode='HTML')
                 except UnboundLocalError:
                     bot.send_message(cid, texts['no_fc'], parse_mode='HTML')
 
@@ -256,11 +257,11 @@ def new_raid(message):
                 star3 = types.InlineKeyboardButton('⭐️⭐️⭐️', callback_data='3stars'+str(raid.idd))
                 star4 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️', callback_data='4stars'+str(raid.idd))
                 star5 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️⭐️', callback_data='5stars'+str(raid.idd))
-                join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
-                done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
                 markup.row(star1, star2)
                 markup.row(star3, star4)
                 markup.row(star5)
+                join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
+                done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
                 markup.row(join)
                 markup.row(done)
 
@@ -291,6 +292,7 @@ def stars(call):
             emoji = ''
             for i in range(int(stars)):
                 emoji += '⭐️'
+            raid.stars = emoji
 
             players = ['-', '-', '-']
             n = 0
@@ -299,7 +301,7 @@ def stars(call):
                 n = n + 1
 
             text = texts['new_raid'].format(
-                raid.pokemon + ' ' + emoji,
+                raid.pokemon + ' ' + raid.stars,
                 raid.owner,
                 raid.fc,
                 players[0],
@@ -349,17 +351,36 @@ def join(call):
                     players[n] = raid.players[n]
                     n = n + 1
 
-                text = texts['new_raid'].format(
-                    raid.pokemon,
-                    raid.owner,
-                    raid.fc,
-                    players[0],
-                    players[1],
-                    players[2]
-                )
-
                 markup = types.InlineKeyboardMarkup()
-                join = types.InlineKeyboardButton('✅Partecipa✅', callback_data='join_raid'+str(raid.idd))
+                if raid.stars == None:
+                    star1 = types.InlineKeyboardButton('⭐️', callback_data='1stars'+str(raid.idd))
+                    star2 = types.InlineKeyboardButton('⭐️⭐️', callback_data='2stars'+str(raid.idd))
+                    star3 = types.InlineKeyboardButton('⭐️⭐️⭐️', callback_data='3stars'+str(raid.idd))
+                    star4 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️', callback_data='4stars'+str(raid.idd))
+                    star5 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️⭐️', callback_data='5stars'+str(raid.idd))
+                    markup.row(star1, star2)
+                    markup.row(star3, star4)
+                    markup.row(star5)
+
+                    text = texts['new_raid'].format(
+                        raid.pokemon,
+                        raid.owner,
+                        raid.fc,
+                        players[0],
+                        players[1],
+                        players[2]
+                    )
+                else:
+                    text = texts['new_raid'].format(
+                        raid.pokemon + ' ' + raid.stars,
+                        raid.owner,
+                        raid.fc,
+                        players[0],
+                        players[1],
+                        players[2]
+                    )
+
+                join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
                 done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
                 markup.row(join)
                 markup.row(done)
@@ -415,14 +436,25 @@ def confirm(call):
                 players[n] = raid.players[n]
                 n = n + 1
 
-            text = texts['new_raid'].format(
-                raid.pokemon,
-                raid.owner,
-                raid.fc,
-                players[0],
-                players[1],
-                players[2]
-            )
+            if raid.stars == None:
+                text = texts['new_raid'].format(
+                    raid.pokemon,
+                    raid.owner,
+                    raid.fc,
+                    players[0],
+                    players[1],
+                    players[2]
+                )
+            else:
+                text = texts['new_raid'].format(
+                    raid.pokemon + ' ' + raid.stars,
+                    raid.owner,
+                    raid.fc,
+                    players[0],
+                    players[1],
+                    players[2]
+                )
+
             text += texts['raid_closed']
 
             pin = ''
@@ -461,17 +493,36 @@ def back(call):
                 players[n] = raid.players[n]
                 n = n + 1
 
-            text = texts['new_raid'].format(
-                raid.pokemon,
-                raid.owner,
-                raid.fc,
-                players[0],
-                players[1],
-                players[2]
-            )
-
             markup = types.InlineKeyboardMarkup()
-            join = types.InlineKeyboardButton('✅Partecipa✅', callback_data='join_raid'+str(raid.idd))
+            if raid.stars == None:
+                star1 = types.InlineKeyboardButton('⭐️', callback_data='1stars'+str(raid.idd))
+                star2 = types.InlineKeyboardButton('⭐️⭐️', callback_data='2stars'+str(raid.idd))
+                star3 = types.InlineKeyboardButton('⭐️⭐️⭐️', callback_data='3stars'+str(raid.idd))
+                star4 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️', callback_data='4stars'+str(raid.idd))
+                star5 = types.InlineKeyboardButton('⭐️⭐️⭐️⭐️⭐️', callback_data='5stars'+str(raid.idd))
+                markup.row(star1, star2)
+                markup.row(star3, star4)
+                markup.row(star5)
+
+                text = texts['new_raid'].format(
+                    raid.pokemon,
+                    raid.owner,
+                    raid.fc,
+                    players[0],
+                    players[1],
+                    players[2]
+                )
+            else:
+                text = texts['new_raid'].format(
+                    raid.pokemon + ' ' + raid.stars,
+                    raid.owner,
+                    raid.fc,
+                    players[0],
+                    players[1],
+                    players[2]
+                )
+
+            join = types.InlineKeyboardButton('🙋‍♂️Partecipa🙋‍♂️', callback_data='join_raid'+str(raid.idd))
             done = types.InlineKeyboardButton('🚫Chiudi🚫', callback_data='done'+str(raid.idd))
             markup.row(join)
             markup.row(done)
