@@ -65,6 +65,8 @@ def yourfc(message):
                 bot.send_message(cid, texts["incomplete_fc_error"], parse_mode='HTML')
             else:
                 fc = message.text.replace('/add', '')
+                if '@RaidDynamaxBot' in fc:
+                    fc.replace('@RaidDynamaxBot', '')
                 fc = fc.replace(' ', '')
                 if 'SW-' in fc:
                     fc = fc.replace('SW-', '')
