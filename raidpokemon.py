@@ -66,7 +66,7 @@ def yourfc(message):
             else:
                 fc = message.text.replace('/add', '')
                 if '@RaidDynamaxBot' in fc:
-                    fc.replace('@RaidDynamaxBot', '')
+                    fc = fc.replace('@RaidDynamaxBot', '')
                 fc = fc.replace(' ', '')
                 if 'SW-' in fc:
                     fc = fc.replace('SW-', '')
